@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Puppies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #ff6347;
+        }
+        .puppy-gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px;
+        }
+        .puppy-image {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Adorable Puppies</h1>
+    <div class="puppy-gallery" id="puppy-gallery">
+        <!-- Puppy images will be displayed here -->
+    </div>
+
+    <script>
+        const apiKey = '679450';  // Replace with your Unsplash API key
+        const apiUrl = `https://api.unsplash.com/photos/random?query=puppy&count=6&client_id=${apiKey}`;
+
+        async function fetchPuppyImages() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                const gallery = document.getElementById('puppy-gallery');
+                data.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = image.urls.small;
+                    imgElement.alt = 'Cute Puppy';
+                    imgElement.classList.add('puppy-image');
+                    gallery.appendChild(imgElement);
+                });
+            } catch (error) {
+                console.error('Error fetching puppy images:', error);
+            }
+        }
+
+        // Fetch images when the page loads
+        window.onload = fetchPuppyImages;
+    </script>
+
+</body>
+</html>
